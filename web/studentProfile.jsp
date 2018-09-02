@@ -14,10 +14,9 @@
         String name = student.getName();
         String age = student.getAge(); 
         String condition = student.getCondition(); 
-        
-
 %> 
-        <h1>Student Profile</h1>
+<div class="container">
+    <h1 align="center">Student Profile</h1>
         <h3>Account Details:</h3>
         
         <table>
@@ -34,5 +33,8 @@
                 <td><%=condition%></td>
             </tr>
         </table>
+    
+</div>
+        
 </html> 
 <%}%>

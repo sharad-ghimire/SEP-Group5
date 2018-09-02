@@ -23,80 +23,111 @@ and open the template in the editor.
             if (submitted != null && submitted.equals("yes")) {
                 
                 String filePath = application.getRealPath("WEB-INF/students.xml");%>
-        <jsp:useBean id="UtsAppStudent" class="uts.sep.model.UtsAppStudent" scope="application">
-            <jsp:setProperty name="UtsAppStudent" property="filePath" value="<%=filePath%>"/>
+        <jsp:useBean id="UtsApp" class="uts.sep.model.UtsApp" scope="application">
+            <jsp:setProperty name="UtsApp" property="filePath" value="<%=filePath%>"/>
         </jsp:useBean>
         <%
             String id = request.getParameter("id");
             String password = request.getParameter("psw");
 
-            UtsAppStudent.setFilePath(filePath);
+            UtsApp.setFilePath(filePath);
 
-            Students students = UtsAppStudent.getStudents();
+            Students students = UtsApp.getStudents();
             Student student = students.login(id, password);
 
             if (student != null) {
                 session.setAttribute("loggedStudent", student);
-                response.sendRedirect("welcomeStudent.jsp");
+                response.sendRedirect("index.jsp");
                 
             } else {
                 errorMsg = "Incorrect ID and Password";%>
-        <div class="row ">
-            <div class="col loginPageDiv">
-                <div class="card grey lighten-3" style="position:absolute;" id="utsImg">
-                    <img src="img/uts.png">
-                    <div class="card-content">
-                        <span class="card-title"><h3>Student Login</h3></span>
-                        <form method="post" action="studentLogin.jsp">
-                            <input type="hidden" name="submitted" value="yes"/>
-                            <p style="align:center; color:red;"><%=errorMsg%></p>
-                            <label><b>Student ID</b></label>
-                            <input type="text" placeholder="Enter your Student ID" name="id" required>
-                            <label><b>Password</b></label>
-                            <input type="password" placeholder="Enter Your Password" name="psw" required>
-                            <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
-                                Login
-                            </button>
-                            
-                        </form>
-                            <form action="index.jsp">
-                            <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
-                                Main Menu
-                            </button>
-                            </form>
+                
+                
+                <div class="row ">
+            <div class="col s12 m5 offset-m4">
+                <div class="card">
+                    <div class="card-action  teal lighten-3 " id="utsImg">
+                        <img src="img/uts.png"> 
                     </div>
-                    
+                    <div class="card-content">
+                       <span class="card-title">Student Log In</span>
+                       <form method="post" action="studentLogin.jsp">
+                           <div class="form-field">
+                               <p style="align:center; color:red;"><%=errorMsg%></p>
+                                <input type="hidden" name="submitted" value="yes"/>
+                                <label><b>Student ID</b></label>
+                                <input type="text" placeholder="Enter your Student ID" name="id" required>
+                               
+                           </div><br>                           
+                           <div class="form-field">
+                                <label><b>Password</b></label>
+                                <input type="password" placeholder="Enter Your Password" name="psw" required>
+                           </div><br>
+                           
+                            <div class="form-field">
+                            <button class="btn-large blue darken-1" type="submit" name="submit" style="width: 100%">
+                                Login
+                                </button>
+                           </div><br>
+                            <div class="form-field">
+                                <button onclick="location.href='doctorLogin.jsp'" class="btn-large  blue darken-1 white-text" name="submitForDoctor" style="width: 100%">
+                                Login As Doctor
+                                </button>
+                           </div><br>
+                       </form>
+                    </div>
+                     <div class="card-action">
+                        <p>If you have not used UTS email before, please activate your account, and use your webmail login to
+                            access your records.</p>
+                        <p align="center"><a target="_blank" class="deep-purple-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
+                                your Account</a></p>
+                    </div>  
+                   </div>  
                 </div>
             </div>
-        </div>
+ 
         <%}} else { %>
        <div class="row ">
-            <div class="col loginPageDiv">
-                <div class="card grey lighten-3" style="position:absolute;" id="utsImg">
-                    <img src="img/uts.png">
-                    <div class="card-content">
-                        <span class="card-title"><h3>Student Log In</h3></span>
-                        <form method="post" action="studentLogin.jsp">
-                            <input type="hidden" name="submitted" value="yes"/>
-                            <label><b>Student ID</b></label>
-                            <input type="text" placeholder="Enter your Student ID" name="id" required>
-                            <label><b>Password</b></label>
-                            <input type="password" placeholder="Enter Your Password" name="psw" required>
-                            <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
-                                Login
-                            </button>
-                            
-                        </form>
-                        <form action="index.jsp">
-                            <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
-                                Main Menu
-                            </button>
-                            </form>
+            <div class="col s12 m5 offset-m4">
+                <div class="card">
+                    <div class="card-action  teal lighten-3 " id="utsImg">
+                        <img src="img/uts.png"> 
                     </div>
-                   
+                    <div class="card-content">
+                       <span class="card-title">Student Log In</span>
+                       <form method="post" action="studentLogin.jsp">
+                           <div class="form-field">
+                                <input type="hidden" name="submitted" value="yes"/>
+                                <label><b>Student ID</b></label>
+                                <input type="text" placeholder="Enter your Student ID" name="id" required>
+                               
+                           </div><br>                           
+                           <div class="form-field">
+                                <label><b>Password</b></label>
+                                <input type="password" placeholder="Enter Your Password" name="psw" required>
+                           </div><br>
+                           
+                            <div class="form-field">
+                            <button class="btn-large blue darken-1" type="submit" name="submit" style="width: 100%">
+                                Login
+                                </button>
+                           </div><br>
+                            <div class="form-field">
+                                <button onclick="location.href='doctorLogin.jsp'" class="btn-large  blue darken-1 white-text" name="submitForDoctor" style="width: 100%">
+                                Login As Doctor
+                                </button>
+                           </div><br>
+                       </form>
+                    </div>
+                     <div class="card-action">
+                        <p>If you have not used UTS email before, please activate your account, and use your webmail login to
+                            access your records.</p>
+                        <p align="center"><a target="_blank" class="deep-purple-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
+                                your Account</a></p>
+                    </div>  
+                   </div>  
                 </div>
             </div>
-        </div>
     </body> 
 </html>
 <% }%>

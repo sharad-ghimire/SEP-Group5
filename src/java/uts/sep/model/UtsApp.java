@@ -10,12 +10,15 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author srd
  */
-public class UtsAppStudent {
+public class UtsApp {
     
     private String filePath;
+    private String filePathForDoctors;
     private Students students;
+    private Doctors doctors;
+   
     
-    public UtsAppStudent() {
+    public UtsApp() {
         
     }  
    
@@ -32,14 +35,29 @@ public class UtsAppStudent {
       fin.close();
     }
     
+    public void setFilePathForDoctors(String filePathForDoctors) throws Exception  {                   
+      this.filePathForDoctors = filePathForDoctors;
+      JAXBContext jb = JAXBContext.newInstance(Doctors.class);
+      Unmarshaller u = jb.createUnmarshaller();
+      FileInputStream fin = new FileInputStream(filePathForDoctors);
+      doctors = (Doctors) u.unmarshal(fin);
+      fin.close();
+    }
    
     public Students getStudents() {
 	return students;
+    }
+    public Doctors getDoctors() {
+	return doctors;
     }
     
     
     public void setStudents(Students students) {
         this.students = students;
+    }
+    
+    public void setDoctors(Doctors doctors) {
+        this.doctors = doctors;
     }
     
     public void saveStudents(Students students, String filePath) throws Exception {
@@ -54,12 +72,19 @@ public class UtsAppStudent {
     }
     
      public void updateXML() throws Exception {
-
         JAXBContext jc = JAXBContext.newInstance(Students.class);
         Marshaller m = jc.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         FileOutputStream fout = new FileOutputStream(filePath);
         m.marshal(students, fout); //Marsahal those students back to the filePath
+        fout.close();
+    }
+     public void updateXMLForDoctors() throws Exception {
+        JAXBContext jc = JAXBContext.newInstance(Doctors.class);
+        Marshaller m = jc.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        FileOutputStream fout = new FileOutputStream(filePathForDoctors);
+        m.marshal(doctors, fout); 
         fout.close();
     }
     

@@ -20,7 +20,7 @@
 </head>
 <body>
     <nav>
-    <div class="nav-wrapper deep-purple darken-2">
+    <div class="nav-wrapper teal ">
         <a href="#" class="brand-logo"><img style="margin: 6px;" src="img/uts-white.png" height="50" width="150" alt="University of Technology Sydney" title="University of Technology Sydney"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#">Appointments</a></li>
