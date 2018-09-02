@@ -18,16 +18,55 @@ and open the template in the editor.
             <div class="container">
                 <h1>Student Home Page</h1>
                 <h4>Hello <%=name%></h4>
-                <p>Welcome to the UTS Medical Appointment Services!</p>            
+                <p>Welcome to the UTS Medical Appointment Services!</p>  <br>        
             </div>
     <%} else if(doctor != null && student == null){
             String name = doctor.getName(); %> 
             <div class="container">
                 <h1>Doctor Home Page</h1>
                 <h4>Hello <%=name%></h4>
-                <p>Welcome to the UTS Medical Appointment Services!</p>            
+                <p>Welcome to the UTS Medical Appointment Services!</p>  
+                <h2>Your Bookings For Today</h2>              
+                 <div class="col s12 m8 offset-m2 l6 offset-l3">
+                    <div class="card-panel teal lighten-5 z-depth-1">
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <h5>Robin Roqueza</h5>
+                        </div>
+                        <div class="col s10">
+                          <span class="black-text">
+                              <ul>
+                                  <li>Returning Patient</li>
+                                  <li>Time: <span class="red-text">11:00 AM</span></li> 
+                                   <li>Last Visited: 2018-09-98</li>
+                                   
+                              </ul>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col s12 m8 offset-m2 l6 offset-l3">
+                    <div class="card-panel teal lighten-5 z-depth-1">
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <h5>Sharad Ghimire</h5>
+                        </div>
+                        <div class="col s10">
+                          <span class="black-text">
+                              <ul>
+                                  <li>New Patient</li> 
+                                  <li>Time: <span class="red-text">2:00 PM</span></li> 
+                              </ul>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+  
             </div>
     
     <%}%>
-        
+    
+<!--    <%@include file="footer.jsp" %> -->
         
