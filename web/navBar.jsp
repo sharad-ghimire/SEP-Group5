@@ -24,7 +24,7 @@
         <a href="#" class="brand-logo"><img style="margin: 6px;" src="img/uts-white.png" height="50" width="150" alt="University of Technology Sydney" title="University of Technology Sydney"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#">Appointments</a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="studentProfile.jsp">Profile</a></li>
         <li><a href="logout.jsp">Logout</a></li>
       </ul>
     </div>

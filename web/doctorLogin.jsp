@@ -41,7 +41,7 @@ and open the template in the editor.
                 
             } else {
                 errorMsg = "Incorrect ID and Password";%>
-        <div class="row ">
+        <div class="row">
             <div class="col loginPageDiv">
                 <div class="card grey lighten-3" style="position:absolute;" id="utsImg">
                     <img src="img/uts.png">

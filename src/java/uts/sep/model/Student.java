@@ -13,11 +13,33 @@ public class Student implements Serializable {
 	private String ID;
 	@XmlElement(name = "password")
 	private String password;
+        @XmlElement(name = "age")
+	private String age;
+        @XmlElement(name = "condition")
+	private String condition;
+                
+    public Student() {
+	super();
+    }
 
-	public Student() {
-		super();
-	}
+    public String getAge() {
+        return age;
+    }
 
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+        
+
+	
     public String getID() {
         return ID;
     }
@@ -26,10 +48,12 @@ public class Student implements Serializable {
         this.ID = ID;
     }
 
-    public Student(String name,String id,  String password) {
+    public Student(String name,String id, String password, String age, String condition ) {
         this.name = name;
         this.ID = id;
         this.password = password;
+        this.age=age;
+        this.condition=condition;
     }
 
     public String getName() {
