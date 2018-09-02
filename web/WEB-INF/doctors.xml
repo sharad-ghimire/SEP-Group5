@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctors>
+    <doctor>
+        <name>Dr. Shaun Murphy</name>
+        <id>4321</id>
+        <password>abcd</password>
+    </doctor>
+    <doctor>
+        <name>Dr. Aaron Glassman</name>
+        <id>4210</id>
+        <password>1234</password>
+    </doctor>
+    <doctor>
+        <name>Dr. Marcus Andrews</name>
+        <id>4100</id>
+        <password>1234</password>
+    </doctor>
+</doctors>
