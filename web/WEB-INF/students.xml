@@ -2,32 +2,32 @@
 <students>
     <student>
         <name>Sharad Ghimire</name>
-        <email>srd@srd.com</email>
-        <password>1234</password>
+        <id>12696403</id>
+        <password>abcd</password>
     </student>
     <student>
         <name>Rohit Gurung</name>
-        <email>something@s.com</email>
+        <id>1234</id>
         <password>1234</password>
     </student>
     <student>
         <name>Ricky Chaudhry</name>
-        <email>something@s.com</email>
+        <id>1234</id>
         <password>1234</password>
     </student>
     <student>
         <name>Robin Roqueza</name>
-        <email>something@s.com</email>
+        <id>1234</id>
         <password>1234</password>
     </student>
         <student>
         <name>Vincent</name>
-        <email>something@s.com</email>
+        <id>1234</id>
         <password>1234</password>
     </student>
     <student>
         <name>Chirs Ketkeo</name>
-        <email>something@s.com</email>
+        <id>1234</id>
         <password>1234</password>
     </student>
 </students>

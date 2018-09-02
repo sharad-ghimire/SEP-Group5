@@ -9,25 +9,26 @@ public class Student implements Serializable {
 
 	@XmlElement(name = "name")
 	private String name;
+        @XmlElement(name = "id")
+	private String ID;
 	@XmlElement(name = "password")
 	private String password;
-        @XmlElement(name = "email")
-	private String email;
-	
+
 	public Student() {
 		super();
 	}
 
-    public String getEmail() {
-        return email;
+    public String getID() {
+        return ID;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setID(String email) {
+        this.ID = ID;
     }
 
-    public Student(String name, String password) {
+    public Student(String name,String id,  String password) {
         this.name = name;
+        this.ID = id;
         this.password = password;
     }
 

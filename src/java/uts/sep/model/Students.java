@@ -27,21 +27,12 @@ public class Students implements Serializable {
         this.studentList.remove(student);
     }
     
-    public Student login(String email, String password) {
+    public Student login(String id, String password) {
         for (Student student : studentList) {
-            if (student.getEmail().equals(email) && student.getPassword().equals(password))
+            if (student.getID().equals(id) && student.getPassword().equals(password))
                 return student; // Login correct. Return this student.
         }
         return null; // Login incorrect. Return null.
     }
     
-    //Checks if the email exists
-    public Student emailChecker(String email) {
-        // For each user in the list...
-        for (Student student : studentList) {
-            if (student.getEmail().equals(email))
-                return student; 
-        }
-        return null; // Login incorrect. Return null.
-    }
 }
