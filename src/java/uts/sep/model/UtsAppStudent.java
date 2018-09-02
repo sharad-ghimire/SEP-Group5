@@ -10,12 +10,12 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author srd
  */
-public class UtsApp {
+public class UtsAppStudent {
     
     private String filePath;
     private Students students;
     
-    public UtsApp() {
+    public UtsAppStudent() {
         
     }  
    

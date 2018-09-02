@@ -1,5 +1,5 @@
 <%@page import="uts.sep.model.*"%>
-<%@page import="uts.sep.model.Students"%>
+<%@page import="uts.sep.model.Doctors"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -22,22 +22,22 @@ and open the template in the editor.
             String submitted = request.getParameter("submitted");
             if (submitted != null && submitted.equals("yes")) {
                 
-                String filePath = application.getRealPath("WEB-INF/students.xml");%>
-        <jsp:useBean id="UtsApp" class="uts.sep.model.UtsApp" scope="application">
-            <jsp:setProperty name="UtsApp" property="filePath" value="<%=filePath%>"/>
+                String filePath = application.getRealPath("WEB-INF/doctors.xml");%>
+        <jsp:useBean id="UtsAppDoctor" class="uts.sep.model.UtsAppDoctor" scope="application">
+            <jsp:setProperty name="UtsAppDoctor" property="filePath" value="<%=filePath%>"/>
         </jsp:useBean>
         <%
             String id = request.getParameter("id");
             String password = request.getParameter("psw");
 
-            UtsApp.setFilePath(filePath);
+            UtsAppDoctor.setFilePath(filePath);
 
-            Students students = UtsApp.getStudents();
-            Student student = students.login(id, password);
+            Doctors doctors = UtsAppDoctor.getDoctors();
+            Doctor doctor = doctors.login(id, password);
 
-            if (student != null) {
-                session.setAttribute("loggedStudent", student);
-                response.sendRedirect("index.jsp");
+            if (doctor != null) {
+                session.setAttribute("loggedDoctor", doctor);
+                response.sendRedirect("welcomeDoctor.jsp");
                 
             } else {
                 errorMsg = "Incorrect ID and Password";%>
@@ -46,25 +46,25 @@ and open the template in the editor.
                 <div class="card grey lighten-3" style="position:absolute;" id="utsImg">
                     <img src="img/uts.png">
                     <div class="card-content">
-                        <span class="card-title"><h3>Log In</h3></span>
-                        <form method="post" action="login.jsp">
+                        <span class="card-title"><h3>Doctor Login Page</h3></span>
+                        <form method="post" action="doctorLogin.jsp">
                             <input type="hidden" name="submitted" value="yes"/>
                             <p style="align:center; color:red;"><%=errorMsg%></p>
-                            <label><b>Student ID</b></label>
-                            <input type="text" placeholder="Enter your Student ID" name="id" required>
+                            <label><b>Doctor ID</b></label>
+                            <input type="text" placeholder="Enter your Doctor ID" name="id" required>
                             <label><b>Password</b></label>
                             <input type="password" placeholder="Enter Your Password" name="psw" required>
                             <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
                                 Login
                             </button>
                         </form>
+                            <form action="index.jsp">
+                            <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
+                                Main Menu
+                            </button>
+                            </form>
                     </div>
-                    <div class="card-action">
-                        <p>If you have not used UTS email before, please activate your account, and use your webmail login to
-                            access your records.</p>
-                        <p align="center"><a target="_blank" class="deep-purple-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
-                                your Account</a></p>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -74,10 +74,10 @@ and open the template in the editor.
                 <div class="card grey lighten-3" style="position:absolute;" id="utsImg">
                     <img src="img/uts.png">
                     <div class="card-content">
-                        <span class="card-title"><h3>Log In</h3></span>
-                        <form method="post" action="login.jsp">
+                        <span class="card-title"><h3>Doctor Log In</h3></span>
+                        <form method="post" action="doctorLogin.jsp">
                             <input type="hidden" name="submitted" value="yes"/>
-                            <label><b>Student ID</b></label>
+                            <label><b>Doctor ID</b></label>
                             <input type="text" placeholder="Enter your Student ID" name="id" required>
                             <label><b>Password</b></label>
                             <input type="password" placeholder="Enter Your Password" name="psw" required>
@@ -85,13 +85,13 @@ and open the template in the editor.
                                 Login
                             </button>
                         </form>
+                        <form action="index.jsp">
+                            <button class="btn-large deep-purple darken-3" type="submit" name="submit" style="display: block; margin: 0 auto;">
+                                Main Menu
+                            </button>
+                            </form>
                     </div>
-                    <div class="card-action">
-                        <p>If you have not used UTS email before, please activate your account, and use your webmail login to
-                            access your records.</p>
-                        <p align="center"><a target="_blank" class="deep-purple-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
-                                your Account</a></p>
-                    </div>
+                   
                 </div>
             </div>
         </div>

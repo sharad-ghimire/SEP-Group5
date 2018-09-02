@@ -1,17 +1,19 @@
 <%-- 
-    Document   : welcomeStudent
-    Created on : 27/08/2018, 12:43:36 PM
-    Author     : robin
+  
 --%>
-
+<%@page import="uts.sep.model.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@include file="navBar.jsp" %>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
+    <title>Student Welcome Page</title>
+<% Student student = (Student) session.getAttribute("loggedStudent");
+
+    if(student == null) {
+        response.sendRedirect("studentLogin.jsp");
+    } else {
+        String name = student.getName(); %> 
+        <h1>Student Home Page</h1>
+    <p>Hello <%=name%>, Welcome to the UTS Medical Appointment Application!</p>  
     </body>
-</html>
+</html> 
+<%}%>
