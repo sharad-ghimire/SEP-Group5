@@ -79,7 +79,7 @@ and open the template in the editor.
                      <div class="card-action">
                         <p>If you have not used UTS email before, please activate your account, and use your webmail login to
                             access your records.</p>
-                        <p align="center"><a target="_blank" class="deep-purple-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
+                        <p align="center"><a target="_blank" class="blue-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
                                 your Account</a></p>
                     </div>  
                    </div>  

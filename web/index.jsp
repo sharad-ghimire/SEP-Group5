@@ -14,13 +14,8 @@ and open the template in the editor.
         response.sendRedirect("studentLogin.jsp");
         
     } else if(student != null && doctor == null){
-            String name = student.getName(); %> 
-            <div class="container">
-                <h1>Student Home Page</h1>
-                <h4>Hello <%=name%></h4>
-                <p>Welcome to the UTS Medical Appointment Services!</p>  <br>        
-            </div>
-    <%} else if(doctor != null && student == null){
+            response.sendRedirect("studentIndex.jsp");
+    } else if(doctor != null && student == null){
             String name = doctor.getName(); %> 
             <div class="container">
                 <h1>Doctor Home Page</h1>
