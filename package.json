@@ -1,0 +1,27 @@
+{
+  "name": "uts-medical-services",
+  "version": "1.0.0",
+  "description": "UTS medical/health facility student appointment system. WEB APP",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharad-ghimire/SEP-Group5.git"
+  },
+  "author": "Sharad Ghimire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharad-ghimire/SEP-Group5/issues"
+  },
+  "homepage": "https://github.com/sharad-ghimire/SEP-Group5#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.13",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.3",
+    "bower": "*"
+  }
+}
