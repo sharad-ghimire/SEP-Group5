@@ -1,52 +1,89 @@
+//Entry file
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const exphb = require('express-handlebars');
 
 //Initial application with express
 const app = express();
 const port = 3000;
 
-//Connection to the database
-// const mongoDB = 'mongodb://127.0.0.1/my_database'; //database name
-// mongoose.connect(mongoDB, {
-//   useNewUrlParser: true
-// });
-// // Get Mongoose to use the global promise library
-// mongoose.Promise = global.Promise;
-// //Get the default connection
-// const db = mongoose.connection;
-// //Bind connection to error event (to get notification of connection errors)
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+//Connection to the local MongoDB database
+// but for project we will be using mLab Cloud MongoDB services
+
+//Local database
+//if deprecated warrnig
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/utsmedical', {
+  useNewUrlParser: true
+}).then(() => {
+  console.log('MongoDB Connected')
+}).catch(err => console.log(err));
 
 
+//Load Models
+const Student = require('./models/Student');
+const Doctor = require('./models/Doctors');
+//Middlewares -->  has access to request and response object  -- Only third party
 
-//Loading Pug as view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-//parse application
-app.use(bodyParser.urlencoded({
-  extended: false
+//Handlebars templateing engine with main layout
+app.engine('handlebars', exphb({
+  defaultLayout: 'main'
 }));
-//parse application/json
+app.set('view engine', 'handlebars');
+
+//dummy middleware
+app.use((req, res, next) => {
+  // console.log(Date.now());
+  next(); //go to next middleware
+});
+
+//parse using body parser //deals with forms data
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
 app.use(bodyParser.json());
 
-//Set Public folder 
+//set Public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Default route
 app.get('/', (req, res) => {
+  const title = "Welcome";
   res.render('index', {
-    title: 'Hello'
+    title: title
   });
 });
 
 //Login route
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('loginAndRegister/login');
+});
+
+//Process POST request
+app.post('/main', (req, res) => {
+  let errMsg = [];
+  if (!req.body.id) {
+    errMsg.push("Add you ID !!!")
+  }
+  if (!req.body.psw) {
+    errMsg.push("And Your Password as well")
+  }
+
+  if (errMsg.length > 0) {
+    res.render("loginAndRegister/login", {
+      errors: errMsg,
+      id: req.body.id,
+      psw: req.body.psw
+    });
+  } else {
+    res.send("passed");
+  }
 })
 
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port} . . .`)
+  console.log(`Server running on http://localhost:${port} . . .`);
 });

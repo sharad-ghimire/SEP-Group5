@@ -18,10 +18,10 @@
   "homepage": "https://github.com/sharad-ghimire/SEP-Group5#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "bower": "*",
     "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
     "mongoose": "^5.2.13",
-    "morgan": "^1.9.0",
-    "pug": "^2.0.3",
-    "bower": "*"
+    "morgan": "^1.9.0"
   }
 }

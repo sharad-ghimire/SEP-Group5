@@ -1,0 +1,46 @@
+{{#each errors}}
+<p style="align:center; color:red;">{{text}}</p>
+{{else}} 
+{{/each}}
+
+<div class="row ">
+  <div class="col s12 m5 offset-m4">
+    <div class="card">
+      <div class="card-action  teal lighten-3 " id="utsImg">
+        <img src="img/uts.png">
+      </div>
+      <div class="card-content">
+        <span class="card-title">Student Log In</span>
+        <form method="post" action="/main">
+          <div class="form-field">
+
+            <input type="hidden" name="submitted" value="yes" />
+            <label><b>Student ID</b></label>
+            <input type="text" placeholder="Enter your Student ID" name="id">
+          </div><br>
+          <div class="form-field">
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter Your Password" name="psw">
+          </div><br>
+          <div class="form-field">
+            <button class="btn-large blue darken-1" type="submit" name="submit" style="width: 100%">
+              Login
+            </button>
+          </div><br>
+          <div class="form-field">
+            <button onclick="location.href='doctorLogin.jsp'" class="btn-large  blue darken-1 white-text" name="submitForDoctor" style="width: 100%">
+              Login As Doctor
+            </button>
+          </div><br>
+        </form>
+      </div>
+      <div class="card-action">
+        <p>If you have not used UTS email before, please activate your account, and use your webmail login to access your
+          records.
+        </p>
+        <p align="center"><a target="_blank" class="blue-text text-darken-3" href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate
+            your Account</a></p>
+      </div>
+    </div>
+  </div>
+</div>
