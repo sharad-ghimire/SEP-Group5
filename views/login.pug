@@ -1,0 +1,12 @@
+extends ./layout/header.pug
+
+block content 
+  h1  Login Page
+  form(method="POST")
+    label(for="id") Student ID :
+    input.form-control(type="text", name="id" id="id" placeholder="Enter Student ID")
+    br
+    label(for="password") Password :
+    input.form-control(type="password", name="password" id="password" placeholder="Enter Your Password")
+    br
+    button.btn.btn-primary(type="submit") Log In

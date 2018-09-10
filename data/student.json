@@ -1,0 +1,22 @@
+[{
+  "firstName": "Sharad",
+  "lastName": "Ghimire",
+  "address": "Mortan ",
+  "email": "sharadghimire5551@gmail,com",
+  "phoneNumber": "+010242083",
+  "stdSemester": "3rd"
+}, {
+  "firstName": "Sharad",
+  "lastName": "Ghimire",
+  "address": "1A Mortan Street",
+  "email": "123@gmail,com",
+  "phoneNumber": "+010242083",
+  "stdSemester": "2nd"
+}, {
+  "firstName": "Sharad",
+  "lastName": "Ghimire",
+  "address": "Street",
+  "email": "idk@whatever.com",
+  "phoneNumber": "+010242083",
+  "stdSemester": "Last"
+}]
