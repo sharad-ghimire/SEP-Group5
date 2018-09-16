@@ -11,20 +11,33 @@ const StudentSchema = new Schema({
     type: String,
     required: true
   },
-  address: {
-    type: String,
-    required: true
-  },
   email: {
     type: String,
     required: true,
     unique: true
   },
-  phoneNumber: String,
+  address: {
+    type: String,
+    required: true
+  },
+  studentID: {
+    type: Number,
+    unique: true,
+    required: true
+  },
+  password: {
+    type: String,
+    require: true
+  },
+  phoneNumber: {
+    type: String
+  },
   stdYear: {
     type: Date
   },
-  stdSemester: String
+  stdSemester: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model('Student', StudentSchema);

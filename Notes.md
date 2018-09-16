@@ -3,11 +3,6 @@
 
 ## EJS
 
-
-
-
-
-
 ## Passport
 
 **http://www.passportjs.org/**
@@ -46,7 +41,7 @@ app.post('/login', passport.authenticate('local'), {
 - Used to authenticate requests
 - Range from verifying user/pass to delegatd authentication using Oauth or federated auth using OpenID
 
-```js
+```javascript
 //Example of Local Strategy using Mongoose
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
