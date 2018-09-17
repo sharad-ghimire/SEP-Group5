@@ -5,6 +5,7 @@ const router = express.Router();
 const Student = require('../models/Student');
 
 router.get('/', (req, res) => {
+
 });
 
 router.post('/', (req, res) => {

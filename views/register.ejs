@@ -10,10 +10,7 @@
 </header>
 <% if(errors){
     for(var i = 0; i < errors.length; i++){%>
-        <p><%= errors[i] %></p>
-        <p>
-          <% if(error_msg) {error_msg.toString()} %>
-        </p>
+        <p><%= errors[i].msg %></p>
 <%}}%>
 <form method="post" action="/register">
     <label for="firstName">First Name: </label>

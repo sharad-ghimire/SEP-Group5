@@ -13,8 +13,7 @@ const StudentSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   address: {
     type: String,
@@ -33,7 +32,7 @@ const StudentSchema = new Schema({
     type: String
   },
   stdYear: {
-    type: Date
+    type: String
   },
   stdSemester: {
     type: String

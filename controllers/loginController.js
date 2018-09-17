@@ -1,18 +1,16 @@
 const Student = require('../models/Student');
-
+const passport = require('passport');
 exports.login = (req, res, next) => {
-  const id = req.body.id;
-  const password = req.body.password;
+  // passport.authenticate('local', {
+  //   successRedirect: '/mainpage',
+  //   failureRedirect: '/login',
+  //   failureFlash: true
+  // })(req, res, next);
+  
+};
 
-  req.checkBody('id', 'Id field is required').notEmpty();
-  req.checkBody('password', 'Password field is required').notEmpty();
-
-  let errors = req.validationErrors();
-  if (errors) {
-    res.render('register', {
-      errors
-    });
-  } else {
-    console.log("SUCCESS");
-    res.redirect('/mainpage', { });
-}
+exports.logout = (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are now loggedout');
+  res.redirect('/login');
+};
