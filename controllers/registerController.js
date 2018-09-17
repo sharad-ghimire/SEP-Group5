@@ -2,7 +2,7 @@
 const Student = require('../models/Student');
 
 exports.register = (req, res, next) => {
-  
+
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;

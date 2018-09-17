@@ -7,8 +7,11 @@ const expressValidator = require('express-validator');
 const session = require('express-session');
 const passport = require('passport');
 
+
 //Local Import
 const env = require('./environment/variables');
+
+
 
 //Initialize application with express
 const app = express();
@@ -24,6 +27,15 @@ mongoose.connect(env.db, {
 //Templateing engine EJS
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+//Global variables
+app.use((req, res, next) => {
+  res.locals.errors = null;
+  res.locals.error_msg = null;
+  next();
+});
+
 
 //Body parser Middle ware //deals with forms data
 app.use(bodyParser.urlencoded({
@@ -45,7 +57,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//Express Validator -- From githib documentation
+//Express Validator -- From githib documentation [error formatter]
 app.use(expressValidator({
   errorFormatter: (param, msg, value) => {
     var namespace = param.split('.'),
@@ -72,6 +84,9 @@ const index = require('./routes/index');
 // const student = require('./routes/student');
 app.use('/', index);
 // app.use('/student', student);
+
+//passport Config
+require('./config/passport')(passport);
 
 
 app.listen(env.port, () => {

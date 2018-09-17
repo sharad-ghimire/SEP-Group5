@@ -8,37 +8,37 @@
 <header>
     <% include ./partials/header %>
 </header>
-<% if(error){
-      for(let i = 0; i < error.length; i++){%>
-        <p><%= error[i] %></p>
-    <%}
-}%>
+<% if(errors){
+    for(var i = 0; i < errors.length; i++){%>
+        <p><%= errors[i] %></p>
+        <p>
+          <% if(error_msg) {error_msg.toString()} %>
+        </p>
+<%}}%>
 <form method="post" action="/register">
     <label for="firstName">First Name: </label>
-    <input type="text" placeholder="Enter Your First Name" name="firstName"  value="<%= firstName %>"/><br>
+    <input type="text" placeholder="Enter Your First Name" name="firstName" /><br>
     <label for="lastName">Last Name: </label>
-    <input type="text" placeholder="Enter Your Last Name" name="lastName" value="<%= lastName %>" /><br>
+    <input type="text" placeholder="Enter Your Last Name" name="lastName" /><br>
     <label for="address">Address: </label>
-    <input type="text" placeholder="Enter your Address" name="address" value="<%= address %>" /><br>
+    <input type="text" placeholder="Enter your Address" name="address"  /><br>
     <label for="email">Email Address: </label>
-    <input type="text" placeholder="Enteer Email Address" name="email" value="<%= email %>" /><br>
+    <input type="text" placeholder="Enteer Email Address" name="email" /><br>
 
     <label for="id">Student ID: </label>
-    <input type="text" placeholder="Enter your Student ID" name="id"  value="<%= id %>"/><br>
+    <input type="text" placeholder="Enter your Student ID" name="studentID" /><br>
 
     <label for="password">Password: </label>
-    <input type="password" placeholder="Enter Password" name="password" value="<%= password %>"/><br>
+    <input type="password" placeholder="Enter Password" name="password" /><br>
     <label for="password2">Confirm Password: </label>
-    <input type="password2" placeholder="Enter Password Again" name="password2"  value="<%= password2 %>"/><br>
-
-
+    <input type="password2" placeholder="Enter Password Again" name="password2"  /><br>
     <label for="phoneNumber">Phone Number: </label>
-    <input type="text" placeholder="Enter your Phone Number" name="phoneNumber" value="<%= phoneNumber %>" /><br>
+    <input type="text" placeholder="Enter your Phone Number" name="phoneNumber" /><br>
 
     <label for="stdYear">Current Year: </label>
-    <input type="text" placeholder="Enter your Curent Year" name="stdYear" value="<%= stdYear %>" /><br>
+    <input type="text" placeholder="Enter your Curent Year" name="stdYear"  /><br>
     <label for="stdSemester">Current Semester: </label>
-    <input type="text" placeholder="Enter your Curent Semester" name="stdSemester"  value="<%= stdSemester %>" /><br>
+    <input type="text" placeholder="Enter your Curent Semester" name="stdSemester"   /><br>
     <button type="submit">Register</button>
 </form>
 <footer>
