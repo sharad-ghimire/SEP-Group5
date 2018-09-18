@@ -46,6 +46,6 @@ module.exports = (passport) => {
   passport.deserializeUser((id, done) => {
     Student.findById(id, (err, student) => {
       done(err, student);
-    }); 
+    });
   });
 }

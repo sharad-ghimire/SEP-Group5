@@ -9,9 +9,11 @@ const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
 
 //Home Page
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.render('index');
 });
+
+
 
 //Register Form
 router.get('/register', (req, res) => {
