@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const Student = require('../models/Student');
 
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
@@ -12,8 +9,6 @@ const loginController = require('../controllers/loginController');
 router.get('/', (req, res) => {
   res.render('index');
 });
-
-
 
 //Register Form
 router.get('/register', (req, res) => {
@@ -28,12 +23,14 @@ router.get('/login', (req, res) => {
 });
 
 // loginController.login
-router.post('/login', passport.authenticate('local'),
-  function (req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/mainpage/' + req.user.studentID);
+router.post('/login', (req, res) => {
+  req.login(req.body.studentID, () => {
+    res.redirect('/mainpage/' + req.body.studentID);
   });
+  // If this function gets called, authentication was successful.
+  // `req.user` contains the authenticated user.
+
+});
 
 //Logout Route
 router.get('/logout', loginController.logout);

@@ -1,7 +1,7 @@
 const Student = require('../models/Student');
 const bcrypt = require('bcryptjs');
 
-exports.register = (req, res, next) => {
+exports.register = (req, res) => {
 
   var newStudent = new Student({
     firstName: req.body.firstName,
@@ -25,6 +25,7 @@ exports.register = (req, res, next) => {
   req.checkBody('password2', 'Both Password should match').equals(req.body.password);
 
   let errors = req.validationErrors();
+
   if (errors) {
     console.log(errors);
     res.render('register', {
@@ -35,9 +36,9 @@ exports.register = (req, res, next) => {
       studentID: req.body.studentID
     }).then(student => {
       if (student) {
-        req.flash('error_msg', 'Student ID Already exits, login instead!');
+        let error = 'Student already exists.';
         res.redirect('/register', {
-          errors
+          error
         });
       } else {
         bcrypt.genSalt(10, (err, salt) => {
@@ -45,19 +46,17 @@ exports.register = (req, res, next) => {
           bcrypt.hash(newStudent.password, salt, (err, hash) => {
             if (err) throw err;
             newStudent.password = hash;
-            console.log(newStudent);
-            newStudent.save()
-              .then(student => {
-                res.redirect('/mainpage', {
-                  student
-                });
-              }).catch(err => {
-                console.log(err);
-                return;
-              });
-          })
-        });
+            newStudent.save((err) => {
+              if (err) throw err;
+              res.redirect('/mainpage/' + newStudent.studentID);
+            })
+          });
+        })
       }
     });
   }
+}
+
+exports.docRegister = (req, res) => {
+
 }
