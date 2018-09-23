@@ -2,44 +2,88 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const registerController = require('../controllers/registerController');
-const loginController = require('../controllers/loginController');
+const bcrypt = require('bcryptjs');
+
+
+
+let User = require('../models/user');
 
 //Home Page
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-//Register Form
-router.get('/register', (req, res) => {
+//Login Route
+router.get('/login', (req, res, next) => {
+  res.render('login');
+});
+
+//Register Route
+router.get('/register', (req, res, next) => {
   res.render('register');
 });
+router.post('/register', (req, res, next) => {
+  const name = req.body.name;
+  const stdId = req.body.stdId;
+  const password = req.body.password;
+  const password2 = req.body.password2;
 
-router.post('/register', registerController.register);
+  req.checkBody('name', 'Name field is required').notEmpty();
+  req.checkBody('stdId', 'ID field is required').notEmpty();
+  req.checkBody('password', 'Password field is required').notEmpty();
+  req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-//Login routes
-router.get('/login', (req, res) => {
-  res.render('login')
+  let errors = req.validationErrors();
+  if (errors) {
+    res.render('register', {
+      errors: errors
+    })
+  } else {
+    User.findOne({
+      stdId: req.body.stdId
+    }).then(user => {
+      if (user) {
+        req.flash('error_msg', 'Student Id already exists');
+        res.redirect('/register');
+      } else {
+        const newUser = new User({
+          name: name,
+          stdId: stdId,
+          password: password
+        });
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser.save().then(user => {
+                req.flash('sucess_msg', 'You are now registered pal!');
+                res.redirect('/login');
+              })
+              .catch(err => {
+                console.log(err);
+                return;
+              });
+          });
+        });
+      }
+    })
+  }
 });
 
-// loginController.login
-router.post('/login', (req, res) => {
-  req.login(req.body.studentID, () => {
-    res.redirect('/mainpage/' + req.body.studentID);
-  });
-  // If this function gets called, authentication was successful.
-  // `req.user` contains the authenticated user.
 
+//Login Processing route
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  })(req, res, next);
 });
 
-//Logout Route
-router.get('/logout', loginController.logout);
-
-router.get('/mainpage/:id', (req, res, next) => {
-  const id = req.params.id;
-  res.render('mainpage', {
-    id
-  });
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  req.flash('sucess_msg', 'You are now logged out!');
+  res.redirect('/login');
 });
 
 module.exports = router;

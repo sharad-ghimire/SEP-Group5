@@ -1,48 +1,78 @@
 const express = require('express');
-const config = require('./config/config');
 const path = require('path');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const mongoose = require('mongoose');
+
+const port = 3000;
+// routers TODO
+const index = require('./routes/index');
+const users = require('./routes/users');
+
+//Passport Congig
+require('./config/passport')(passport);
+
+
 const app = express();
 
-//database connection 
-require('./config/database')();
-
-//Setup the app middleware
-require('./middleware/appMiddleware')(app);
-
-// //Passport Middleware
-
-
-// //passport Config
-// require('../config/passport')(passport);
-
-//setting views engine
-app.set('views', path.join(__dirname, 'views'));
+//View Engine
 app.set('view engine', 'ejs');
 
-//seting static assests folder
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
+//Body Parser 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
-//Global Variables
+//Express Session
+app.use(session({
+  secret: 'whatever',
+  saveUninitialized: true,
+  resave: true
+}));
+
+//Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Express Messgaes
+app.use(flash());
+
+//Express Validator
+app.use(expressValidator({
+  errorFormatter: (param, msg, value) => {
+    var namespace = param.split('.');
+    var root = namespace.shift();
+    var formParam = root;
+
+    while (namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    };
+  }
+}));
+
+//Local varaibles
 app.use((req, res, next) => {
   res.locals.errors = null;
-  res.locals.user = req.user || null; //our session of user
+  res.locals.sucess_msg = req.flash('sucess_msg') || null;
+  res.locals.error_msg = req.flash('error_msg') || null;
+  res.locals.error = req.flash('error') || null;
+  res.locals.user = req.user || null;
   next();
 });
 
-
-//Routers for root route
-const index = require('./routes/index');
+//Set Routes`
 app.use('/', index);
+app.use('/users', users);
 
-//Routers for student route
-// const student = require('./routes/student');
-// app.use('/mainpage/student', student);
-
-//For testing 
-//module.exports = app;
-
-
-app.listen(config.port, () => {
-  console.log(`Server running on http://localhost:${config.port} . . .`);
+app.listen(port, () => {
+  console.log(`Server started at port: ${port}`)
 });
