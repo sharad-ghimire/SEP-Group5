@@ -1,0 +1,67 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Book Appointment Online</h1>
+    <p class="lead">Use the form below to book appointment quickly and easy. Select what kind of appointment you wish to make - whether it would be a consultation or an examination.</p>
+
+    <form method="post" action="/users/appointment">
+    <div class="form-group">
+      <label for="name">Choose type of medical service</label>
+       <select name="type" class="form-control" id="sel1">
+          <option value="exams">Examination</option>
+          <option value="consult">Consultation</option>
+      </select>
+    </div>
+      
+
+    <div class="form-group">
+      <label for="stdId">Doctors Available</label>
+      <select name="doctor" class="form-control" id="sel1">
+          <option value="1" >Doctor 1</option>
+          <option value="2" >Doctor 2</option>
+      </select>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="form-group">
+        <label for="date">Choose avaiable date</label>
+        <input type="date" class="form-control" name="date" id="date">
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-group">
+          <label for="fromTime">From</label>
+            <select name="fromTime" class="form-control" id="sel1">
+              <option value="10:00 am">10:00 am</option>
+              <option value="11:00 am">11:00 am</option>
+            </select>
+        </div>
+      </div>
+      <div class="col-lg-4">
+      <div class="form-group">
+          <label for="fromTime">From</label>
+            <select name="toTime" class="form-control" id="sel1">
+              <option value="10:00 am">10:00 am</option>
+              <option value="11:00 am">11:00 am</option>
+            </select>
+        </div>
+      </div>
+      </div>
+    <div class="form-group">
+      <label for="notes">Short description on your problem:</label>
+    <textarea name="notes" class="form-control" rows="5" id="notes"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Book</button>
+    </form>
+
+
+  </div>
+</div>
+</div>
+
+
+
+<% include ./partials/footer %>
