@@ -5,7 +5,14 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "8.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sharad-ghimire/SEP-Group5.git"
   },
   "author": "",
   "license": "ISC",
@@ -22,8 +29,5 @@
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^1.18.4"
   }
 }

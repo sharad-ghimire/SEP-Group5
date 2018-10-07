@@ -7,7 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-const port = 3000;
+const port = process.env.PORT || 3000 ;
 // routers TODO
 const index = require('./routes/index');
 const users = require('./routes/users');
