@@ -39,7 +39,8 @@ router.get('/profile', (req, res, next) => {
 
 
 router.post('/appointment', (req, res, next) => {
-  res.json(req.body);
+  // res.json(req.body);
+  res.render('success.ejs');
 });
 
 module.exports = router;

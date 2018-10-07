@@ -32,7 +32,8 @@ app.use(bodyParser.urlencoded({
 app.use(session({
   secret: 'whatever',
   saveUninitialized: true,
-  resave: true
+  resave: true,
+  cookie: { maxAge: 1000000000000 }
 }));
 
 //Passport middleware
@@ -70,9 +71,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static('public'));
+
 //Set Routes`
 app.use('/', index);
 app.use('/users', users);
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Server started at port: ${port}`)

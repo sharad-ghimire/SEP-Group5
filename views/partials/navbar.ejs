@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">UTS Medical Services</a>
+  <a class="navbar-brand" href="/"><img src="https://static1.squarespace.com/static/57bbee1829687fe2a564ba75/t/5aa71d499140b794ec5b9146/1520901461157/uts-logo-trace-white.png" height="30" class="d-inline-block align-top" alt="mdb logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,13 +9,14 @@
         <a class="nav-link" href="/">Home </a>
       </li>
       <% if(user !== null ){  %>
-
       <li class="nav-item">
         <a class="nav-link" href="/users/profile">Profile</a>
       </li>
+      <% if(user.doctor == false){ %>
       <li class="nav-item">
         <a class="nav-link" href="/users/appointment">Appointment</a>
       </li>
+      <%}%>
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>
       </li>

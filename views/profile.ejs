@@ -1,66 +1,82 @@
 <% include ./partials/header %>
 <% include ./partials/navbar %>
 
-<div class="container mt-4">
-
-<div class="row">
-  <div class="col-lg-8 mb-3">
-    <div class="card">
-      <div class="card-header">Your Details</div>
-        <div class="card-body">
-        <form method="post" action="/register">
-        <div class="form-group">
-        <%if(user){ %>
-          <label for="name">Name</label>
-          <input type="text" class="form-control" name="name" id="name" value="<%=user.name%>">
-        </div>
-        
-        <div class="form-group">
-          <label for="stdId">Student ID</label>
-          <input type="text" class="form-control" name="stdId" id="stdId" value="<%=user.stdId%>">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" id="password" placeholder="Update Password">
-        </div>
-        <% } %>
-        
-        <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-       
 
 
-        </div>
-    </div>
-  </div>
+<%
+  if(user){
+    if(user.doctor == true){ %>
+      // Show Doctor Profile
+      <div class="container mt-4">
 
-  <div class="col-lg-4">
-  <div class="card">
-      <div class="card-header">Your Treatment History</div>
-        <div class="card-body">
-        <% if(app) {
-          for(let i = 0; i < app.length; i++){  
-            for (let j = 0; j < doctors.length; j++) {
-              if (doctors[j]._id === app[i].doctorId ) {
-                var doctorFN = doctors[j].first_name;
-                var doctorLN = doctors[j].last_name
-              }
-            }
-            
-          %>
-         <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title"><%= app[i].date%> - Doctor: <%=doctorFN +" "+ doctorLN %> </h5>
-                <p class="card-text">Time: <%= app[i].time%>. App ID: <%= app[i]._id%></p>
-              </div>
+        <div class="row">
+          <div class="col-8 mb-3">
+            <div class="card">
+                <div class="card-body">
+                  <p class="lead">Welcom <%=user.stdId%> your are a doctor.</p>
+                </div>
             </div>
-        <% } 
-          }
-          %>
+          </div>
         </div>
-    </div>
 
-  </div>
-</div>
-</div>
+        <div class="row">
+          <div class="col-8">
+          <div class="card">
+              <div class="card-header">Your Treatment History</div>
+                <div class="card-body">
+                List of doctors previous history
+                </div>
+            </div>
+
+          </div>
+        </div>
+        </div>
+
+    <% } else { %>
+      //Show Student Profile
+      <div class="container mt-4">
+
+        <div class="row">
+          <div class="col-8 mb-3">
+            <div class="card">
+                <div class="card-body">
+                  <p class="lead">Welcom <%=user.stdId%> your are a student.</p>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+          <div class="card">
+              <div class="card-header">Your Treatment History</div>
+                <div class="card-body">
+                <% if(app) {
+                  for(let i = 0; i < app.length; i++){  
+                    for (let j = 0; j < doctors.length; j++) {
+                      if (doctors[j]._id === app[i].doctorId ) {
+                        var doctorFN = doctors[j].first_name;
+                        var doctorLN = doctors[j].last_name
+                      }
+                    } %>
+                  <div class="card mb-3">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= app[i].date%> - Doctor: <%=doctorFN +" "+ doctorLN %> </h5>
+                          <p class="card-text">Time: <%= app[i].time%>. App ID: <%= app[i]._id%></p>
+                        </div>
+                      </div>
+                <% } 
+                  }
+                  %>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        </div>
+
+<%  }
+  } 
+%>
+
 <% include ./partials/footer %>

@@ -12,6 +12,9 @@ const UserSchema = mongoose.Schema({
   },
   password: {
     type: String
+  },
+  doctor: {
+    type: Boolean
   }
 });
 

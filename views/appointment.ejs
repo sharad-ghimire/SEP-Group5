@@ -1,67 +1,281 @@
 <% include ./partials/header %>
 <% include ./partials/navbar %>
 
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Book Appointment Online</h1>
-    <p class="lead">Use the form below to book appointment quickly and easy. Select what kind of appointment you wish to make - whether it would be a consultation or an examination.</p>
+<!-- /users/appointment -->
+<style>
+  /* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
 
-    <form method="post" action="/users/appointment">
-    <div class="form-group">
-      <label for="name">Choose type of medical service</label>
-       <select name="type" class="form-control" id="sel1">
-          <option value="exams">Examination</option>
-          <option value="consult">Consultation</option>
-      </select>
-    </div>
-      
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
 
-    <div class="form-group">
-      <label for="stdId">Doctors Available</label>
-      <select name="doctor" class="form-control" id="sel1">
-          <option value="1" >Doctor 1</option>
-          <option value="2" >Doctor 2</option>
-      </select>
-    </div>
-    
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="form-group">
-        <label for="date">Choose avaiable date</label>
-        <input type="date" class="form-control" name="date" id="date">
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #dbd7d7b7;
+  border: none; 
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+</style>
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <form id="regForm" method="post" action="/users/appointment">
+      <div class="card mt-5">
+        <div class="card-header success-color white-text text-center py-4 ">
+          <strong>Book an Appointment</strong>
         </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="form-group">
-          <label for="fromTime">From</label>
-            <select name="fromTime" class="form-control" id="sel1">
-              <option value="10:00 am">10:00 am</option>
-              <option value="11:00 am">11:00 am</option>
-            </select>
+        <div class="card-body">
+          <div class="tab">
+            <div class="card">
+              <div class="card-body">
+                <p class="lead text-center">Welcome to UTS Medical Booking Online System.</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="tab">
+            <div class="card">
+              <div class="card-header">Please select your medical assessments from the list below.</div>
+              <div class="card-body">
+                
+                <small>Select your medical assessments ( Select multiple options using Ctrl )</small>
+                <select id="select" style='overflow:hidden' name="medicalType" class=" form-control mdb-select md-form colorful-select dropdown-sucess"
+                  multiple searchable="Search here..">
+                  <option value="examination">Examination</option>
+                  <option value="consultation">Consultation</option>
+                  <option value="chestXray">Chest X-Ray</option>
+                  <option value="serum">Serum Creatinine</option>
+                  <option value="hiv">HIV test</option>
+                  <option value="liver">Liver Function Tests</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab">
+            <div class="card">
+              <div class="card-header">
+                Please select the date of your preferred appointment.
+              </div>
+              <div class="card-body">
+                <p>When making your booking please allow up to 2 hours for individual appointments.</p>
+
+                <p>Your time selection will only be held for 15 minutes. You must complete this booking within this
+                  time otherwise you may
+                  lose the selection.</p>
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col-10">
+                    <form method="GET" action="/dates">
+                      <div class="form-group row">
+                        <label for="date" class="col-sm-2 col-form-label">Search Date</label>
+                        <div class="col-sm-8">
+                          <div class="md-form mt-0">
+                            <input type="date" name="date" class="form-control" id="date">
+                          </div>
+                        </div>
+                        <div class="col-sm-2"> <button class="btn btn-success btn-sm">Search</button> </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-1"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab">
+            <div class="card">
+              <div class="card-header">
+                Customer Details
+              </div>
+              <div class="card-body">
+                <p>Please enter your details below.</p>
+              </div>
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                  <div class="form-group row">
+                    <label for="stdId" class="col-sm-2 col-form-label">Student Id</label>
+                    <div class="col-sm-10">
+                      <div class="md-form mt-0">
+                        <input type="text" name="stdId" class="form-control" id="stdId" placeholder="Enter your Student ID"
+                          <% if(user !=null){ %> value="
+                        <%= user.stdId%>"
+                        <%} %>>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Full Name</label>
+                    <div class="col-sm-10">
+                      <div class="md-form mt-0">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" <%
+                          if(user !=null){ %> value="<%= user.name%>"
+                        <%} %>>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="address" class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-10">
+                      <div class="md-form mt-0">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Enter Name">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-1"></div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="tab">
+            <!-- Doctors -->
+
+          </div>
+          <div class="tab">
+            <!-- Confirm -->
+            <div class="text-center">
+              <p class="lead ">Here is the details of your bookings</p>
+              <p>If you want to make any changes go back or simple submit for confirmation</p>
+            </div>
+            <diV class="card">
+              <div class="card-body">
+                Details of previous forms will be shown here.
+              </div>
+            </diV>
+          </div>
+          <div class="card-footer">
+            <div style="overflow:auto;">
+              <div style="text-align:center;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+              </div>
+              <div style="float:right;">
+                <button type="button" class="btn btn-success" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" class="btn btn-success" id="nextBtn" onclick="nextPrev(1)">Next</button>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
-      <div class="col-lg-4">
-      <div class="form-group">
-          <label for="fromTime">From</label>
-            <select name="toTime" class="form-control" id="sel1">
-              <option value="10:00 am">10:00 am</option>
-              <option value="11:00 am">11:00 am</option>
-            </select>
-        </div>
-      </div>
-      </div>
-    <div class="form-group">
-      <label for="notes">Short description on your problem:</label>
-    <textarea name="notes" class="form-control" rows="5" id="notes"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Book</button>
+
     </form>
-
-
   </div>
+  <div class="col-1"></div>
+
 </div>
-</div>
 
 
+<script>
+  // Material Select Initialization
 
+  var currentTab = 0; // Current tab is set to be the first tab (0)
+  showTab(currentTab); // Display the current tab
+
+  function showTab(n) {
+    // This function will display the specified tab of the form ...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    // ... and fix the Previous/Next buttons:
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+      document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+      document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    // ... and run a function that displays the correct step indicator:
+    fixStepIndicator(n)
+  }
+
+  function nextPrev(n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tab");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateForm()) return false;
+    // Hide the current tab:
+    x[currentTab].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTab = currentTab + n;
+    // if you have reached the end of the form... :
+    if (currentTab >= x.length) {
+      //...the form gets submitted:
+      document.getElementById("regForm").submit();
+      return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+  }
+
+  function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+      // If a field is empty...
+      if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false:
+        valid = false;
+      }
+    }
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+      document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+  }
+
+  function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+      x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class to the current step:
+    x[n].className += " active";
+  }
+  var select = document.getElementById('select');
+  select.size = select.length;
+        // $(document).ready(function () {
+        //     $('.mdb-select').material_select();
+        //   });
+
+</script>
 <% include ./partials/footer %>
