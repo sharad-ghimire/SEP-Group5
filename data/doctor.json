@@ -1,5 +1,5 @@
 [{
-  "_id": 135,
+  "id": 135,
   "first_name": "Ted",
   "last_name": "Mosby",
   "Address": "6/78 serl street randwick",
@@ -7,7 +7,7 @@
   "Phone_no": 1234567088,
   "type": "examinations"
 }, {
-  "_id": 460,
+  "id": 460,
   "first_name": "Barney",
   "last_name": "Stinsom",
   "Address": "9/121 tros street roseville",
