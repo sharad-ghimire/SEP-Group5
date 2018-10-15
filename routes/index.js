@@ -1,15 +1,14 @@
+/**
+ * Index route of our application
+ * Any thing with '/' will route to this router
+ */
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
 const bcrypt = require('bcryptjs');
 
-
-
 let User = require('../models/user');
-let students = require('../data/students')
-let Student = require('../models/student');
-
 
 //Home Page
 router.get('/', (req, res, next) => {
@@ -28,7 +27,9 @@ router.get('/register', (req, res, next) => {
 
 
 
-
+/*Post route for register
+* Will handle registration of user to the Database
+*/
 router.post('/register', (req, res, next) => {
   const name = req.body.name;
   const stdId = req.body.stdId;
@@ -36,8 +37,8 @@ router.post('/register', (req, res, next) => {
   const password2 = req.body.password2;
   const doctor = (req.body.isDoctor == '1') ? true : false; 
   console.log(doctor);
-  
 
+  //Checks for Validation
   req.checkBody('name', 'Name field is required').notEmpty();
   req.checkBody('stdId', 'ID field is required').notEmpty();
   req.checkBody('password', 'Password field is required').notEmpty();
@@ -63,6 +64,7 @@ router.post('/register', (req, res, next) => {
           doctor: doctor
         });
 
+        //bcrypt is used for the encryption of password
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
@@ -92,6 +94,7 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+//Logout route which simply redirect to login by deleteing the session object of user
 router.get('/logout', (req, res, next) => {
   req.logout();
   req.flash('sucess_msg', 'You are now logged out!');

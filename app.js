@@ -1,3 +1,6 @@
+/**
+ * Entry Point of our application
+ */
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -8,11 +11,12 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 
 const port = process.env.PORT || 3000 ;
-// routers TODO
+
+// routers
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-//Passport Congig
+//Passport Configuration
 require('./config/passport')(passport);
 
 
@@ -71,16 +75,17 @@ app.use((req, res, next) => {
   next();
 });
 
+//Using Public Static Files
 app.use(express.static('public'));
 
-//Set Routes`
+//Set Routes
 app.use('/', index);
 app.use('/users', users);
 
 
-
-
-
+/*Listening to port
+  @params{number} port The port this application will look to 
+ */
 
 app.listen(port, () => {
   console.log(`Server started at port: ${port}`)

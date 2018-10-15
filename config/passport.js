@@ -1,14 +1,17 @@
+/**
+ * Passport module for configuration of authentication
+ */
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-//Models
+// User Model
 const User = require('../models/user');
 
 
 module.exports = (passport) => {
 
-  //Local Strategy
+  //Local Strategy for login
   passport.use(new LocalStrategy({
     usernameField: 'stdId'
   }, (stdId, password, done) => {
@@ -35,11 +38,12 @@ module.exports = (passport) => {
     });
   }));
 
-  //Serialize and deserailize user
+  //Serialize user
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
+  //Deserailize user
   passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
       done(err, user);
