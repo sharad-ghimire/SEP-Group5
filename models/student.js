@@ -33,5 +33,4 @@ const StudentSchema = mongoose.Schema({
         type: Array[Number]
     }
 });
-
 const Student = module.exports = mongoose.model('Student', StudentSchema);

@@ -7,7 +7,8 @@ const bcrypt = require('bcryptjs');
 
 
 let User = require('../models/user');
-
+let students = require('../data/students')
+let Student = require('../models/student');
 
 
 //Home Page
@@ -61,6 +62,7 @@ router.post('/register', (req, res, next) => {
           password: password,
           doctor: doctor
         });
+
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
