@@ -8,8 +8,7 @@ const StudentSchema = mongoose.Schema({
         type: String
     },
     first_name: {
-        type: String,
-        required:[ture, 'Name field is required']
+        type: String
     },
     last_name: {
         type: String
@@ -30,7 +29,7 @@ const StudentSchema = mongoose.Schema({
         type: String
     },
     Appointments: {
-        type: Array[Number]
+        type: Array
     }
 });
 const Student = module.exports = mongoose.model('Student', StudentSchema);
