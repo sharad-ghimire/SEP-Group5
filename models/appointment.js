@@ -1,16 +1,12 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://whatever:whatever1@ds257372.mlab.com:57372/uts-medical-services');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
 
-//Apointment Schema
 const AppointmentSchema = mongoose.Schema({
-    id: { type : Number},
-    date: {type : Date},
-    time: {type: TimeRanges},
-    doctorId: {
-        type: Number,
-        required: [true]
-    }
-})
+  id: { type: String },
+  appointmentType: { type: Array },
+  date: { type: String },
+  time: { type: String },
+  doctorName: { type: String },
+  studentId: { type: String }
+});
 
-const Apointment = module.exports = mongoose.model('Appointment', AppointmentSchema);
+module.exports = mongoose.model("Appointment", AppointmentSchema);

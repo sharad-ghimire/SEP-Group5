@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://whatever:whatever1@ds257372.mlab.com:57372/uts-medical-services');
-const bcrypt = require('bcryptjs');
-
+const mongoose = require("mongoose");
 //User Schema
 const UserSchema = mongoose.Schema({
   name: {
     type: String
   },
   stdId: {
+    type: String
+  },
+  email: {
     type: String
   },
   password: {
@@ -18,4 +18,4 @@ const UserSchema = mongoose.Schema({
   }
 });
 
-const User = module.exports = mongoose.model('User', UserSchema);
+const User = (module.exports = mongoose.model("User", UserSchema));

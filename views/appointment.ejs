@@ -1,6 +1,6 @@
-<% include ./partials/header %>
-<% include ./partials/navbar %>
-
+<% include ./partials/header.ejs %>
+<% include ./partials/navbar.ejs %>
+<% include ./partials/scripts.ejs %>
 <!-- /users/appointment -->
 <style>
   /* Mark input boxes that gets an error on validation: */
@@ -32,7 +32,7 @@ input.invalid {
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-  background-color: #4CAF50;
+  background-color: rgba(30, 77, 154, 0.7);
 }
 </style>
 <div class="row">
@@ -40,136 +40,33 @@ input.invalid {
   <div class="col-10">
     <form id="regForm" method="post" action="/users/appointment">
       <div class="card mt-5">
-        <div class="card-header success-color white-text text-center py-4 ">
+        <div class="card-header info-color-dark white-text text-center py-4">
           <strong>Book an Appointment</strong>
         </div>
         <div class="card-body">
           <div class="tab">
-            <div class="card">
-              <div class="card-body">
-                <p class="lead text-center">Welcome to UTS Medical Booking Online System.</p>
-              </div>
-            </div>
-
+              <% include ./app-contain/intro.ejs %>
           </div>
           <div class="tab">
-            <div class="card">
-              <div class="card-header">Please select your medical assessments from the list below.</div>
-              <div class="card-body">
-                
-                <small>Select your medical assessments ( Select multiple options using Ctrl )</small>
-                <select id="select" style='overflow:hidden' name="medicalType" class=" form-control mdb-select md-form colorful-select dropdown-sucess"
-                  multiple searchable="Search here..">
-                  <option value="examination">Examination</option>
-                  <option value="consultation">Consultation</option>
-                  <option value="chestXray">Chest X-Ray</option>
-                  <option value="serum">Serum Creatinine</option>
-                  <option value="hiv">HIV test</option>
-                  <option value="liver">Liver Function Tests</option>
-                </select>
-              </div>
-
-            </div>
+              <% include ./app-contain/medical-type.ejs %>
           </div>
 
           <div class="tab">
-            <div class="card">
-              <div class="card-header">
-                Please select the date of your preferred appointment.
-              </div>
-              <div class="card-body">
-                <p>When making your booking please allow up to 2 hours for individual appointments.</p>
-
-                <p>Your time selection will only be held for 15 minutes. You must complete this booking within this
-                  time otherwise you may
-                  lose the selection.</p>
-                <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col-10">
-                    <form method="GET" action="/dates">
-                      <div class="form-group row">
-                        <label for="date" class="col-sm-2 col-form-label">Search Date</label>
-                        <div class="col-sm-8">
-                          <div class="md-form mt-0">
-                            <input type="date" name="date" class="form-control" id="date">
-                          </div>
-                        </div>
-                        <div class="col-sm-2"> <button class="btn btn-success btn-sm">Search</button> </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="col-1"></div>
-
-                </div>
-
-              </div>
-
-            </div>
+              <% include ./app-contain/search-dates.ejs%>
           </div>
 
           <div class="tab">
-            <div class="card">
-              <div class="card-header">
-                Customer Details
-              </div>
-              <div class="card-body">
-                <p>Please enter your details below.</p>
-              </div>
-              <div class="row">
-                <div class="col-1"></div>
-                <div class="col-10">
-                  <div class="form-group row">
-                    <label for="stdId" class="col-sm-2 col-form-label">Student Id</label>
-                    <div class="col-sm-10">
-                      <div class="md-form mt-0">
-                        <input type="text" name="stdId" class="form-control" id="stdId" placeholder="Enter your Student ID"
-                          <% if(user !=null){ %> value="
-                        <%= user.stdId%>"
-                        <%} %>>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Full Name</label>
-                    <div class="col-sm-10">
-                      <div class="md-form mt-0">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" <%
-                          if(user !=null){ %> value="<%= user.name%>"
-                        <%} %>>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="address" class="col-sm-2 col-form-label">Address</label>
-                    <div class="col-sm-10">
-                      <div class="md-form mt-0">
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Enter Name">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-1"></div>
-
-
-              </div>
-            </div>
+              <% include ./app-contain/details.ejs%>
           </div>
-          <div class="tab">
-            <!-- Doctors -->
-
-          </div>
-          <div class="tab">
-            <!-- Confirm -->
-            <div class="text-center">
-              <p class="lead ">Here is the details of your bookings</p>
-              <p>If you want to make any changes go back or simple submit for confirmation</p>
-            </div>
-            <diV class="card">
-              <div class="card-body">
-                Details of previous forms will be shown here.
-              </div>
-            </diV>
-          </div>
+          <!--<div class="tab">-->
+              <!--&lt;!&ndash; Confirm &ndash;&gt;-->
+              <!--<% include ./app-contain/confirm.ejs%>-->
+            <!--<diV class="card">-->
+              <!--<div class="card-body">-->
+                <!--Details of previous forms will be shown here.-->
+              <!--</div>-->
+            <!--</diV>-->
+          <!--</div>-->
           <div class="card-footer">
             <div style="overflow:auto;">
               <div style="text-align:center;">
@@ -177,42 +74,35 @@ input.invalid {
                 <span class="step"></span>
                 <span class="step"></span>
                 <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
               </div>
               <div style="float:right;">
-                <button type="button" class="btn btn-success" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" class="btn btn-success" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                <button type="button" class="btn info-color-dark" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" class="btn info-color-dark" id="nextBtn" onclick="nextPrev(1)">Next</button>
               </div>
             </div>
           </div>
-
         </div>
-
     </form>
   </div>
   <div class="col-1"></div>
 
 </div>
-
-
 <script>
   // Material Select Initialization
-
-  var currentTab = 0; // Current tab is set to be the first tab (0)
+  let currentTab = 0; // Current tab is set to be the first tab (0)
   showTab(currentTab); // Display the current tab
 
   function showTab(n) {
     // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+      const x = document.getElementsByClassName("tab");
+      x[n].style.display = "block";
     // ... and fix the Previous/Next buttons:
-    if (n == 0) {
+    if (n === 0) {
       document.getElementById("prevBtn").style.display = "none";
     } else {
       document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 1)) {
+    if (n === (x.length - 1)) {
       document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
       document.getElementById("nextBtn").innerHTML = "Next";
@@ -242,8 +132,8 @@ input.invalid {
 
   function validateForm() {
     // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
+      let x, y, i, valid = true;
+      x = document.getElementsByClassName("tab");
     y = x[currentTab].getElementsByTagName("input");
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
@@ -264,18 +154,15 @@ input.invalid {
 
   function fixStepIndicator(n) {
     // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
+      let i, x = document.getElementsByClassName("step");
+      for (i = 0; i < x.length; i++) {
       x[i].className = x[i].className.replace(" active", "");
     }
     //... and adds the "active" class to the current step:
     x[n].className += " active";
   }
-  var select = document.getElementById('select');
-  select.size = select.length;
-        // $(document).ready(function () {
-        //     $('.mdb-select').material_select();
-        //   });
 
+  const select = document.getElementById('select');
+  select.size = select.length;
 </script>
-<% include ./partials/footer %>
+<% include ./partials/footer.ejs %>

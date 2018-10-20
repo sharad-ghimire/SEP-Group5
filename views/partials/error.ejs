@@ -1,18 +1,29 @@
 
 <% if(sucess_msg.length > 0){
 %>
-  <div class="alert alert-success"><%=sucess_msg %></div>
+<div class="text-center mt-2">
+    <span class="text-success"><%=sucess_msg %></span>
+</div>
+
 <% }%>
 <% if(error.length > 0){ %>
-  <div class="alert alert-danger"><%=error %></div>
+<div class="text-center mt-2">
+    <span class="text-danger"><%=error %></span>
+</div>
+
 <% }%>
 
 <% if(error_msg.length > 0){ %>
-  <div class="alert alert-danger"><%=error_msg %></div>
+<div class="text-center mt-2">
+    <span class="text-danger"><%=error_msg %></span>
+</div>
+
 <% }%>
 
-<% if(errors){
-      errors.forEach(error => {%>
-      <div class="alert alert-danger"><%=error.msg %></div>
-   <% });
-}%>
+<% if(errors){%>
+<div class="text-center mt-2">
+     <% errors.forEach(error => {%>
+      <span class="text-danger"><%=error.msg %></span>
+   <% }); %>
+</div>
+<%}%>

@@ -1,32 +1,40 @@
-<% include ./partials/header %>
-<% include ./partials/navbar %>
+<% include ./partials/header.ejs %>
+<% include ./partials/scripts.ejs %>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card">
+                <h5 class="card-header primary-color-dark white-text text-center py-4">
+                    <strong><img src="https://static1.squarespace.com/static/57bbee1829687fe2a564ba75/t/5aa71d499140b794ec5b9146/1520901461157/uts-logo-trace-white.png" height="50" class="d-inline-block align-top" alt="mdb logo">
+                    </strong><small class="lead align-bottom m-3">My Medical Services</small>
+                </h5>
+                <div class="card-body px-lg-5 pt-0 mt-3">
+                    <% include ./partials/error.ejs %>
+                    <form class="text-center" method="post" action="/login" style="color: #757575;">
+                        <div class="md-form">
+                            <input type="text" name="stdId" id="stdId" class="form-control">
+                            <label for="stdId">Enter you ID</label>
+                        </div>
+                        <div class="md-form mt-3" >
+                            <input type="password" class="form-control" name="password" id="password">
+                            <label for="password">Password</label>
+                        </div>
+                        <button type="submit" class="btn primary-color-dark btn-rounded my-4
+                        waves-effect z-depth-0">Login</button>
+                        <p>If you have not used UTS email before, please activate your account,
+                            and use your web mail login to access your records.</p>
+                        <p><a href="https://email.itd.uts.edu.au/webapps/myaccount/activation/">Activate your email
+                                account</a></p>
+                        <p><a href="https://email.itd.uts.edu.au/webapps/myaccount/passwordreset/">Forget
+                            Password?</a></p>
+                        <p><a href=""></a></p>
+                    </form>
+                </div>
 
-<% include ./partials/error %> 
-
-
-<div class="conatiner">
-<div class="card">
-  <div class="card-header">
-    Log In 
-  </div>
-  <div class="card-body">
-    <form  method="post" action="/login">
-    <div class="form-group">
-      <label for="stdId">Student ID</label>
-      <input type="text" class="form-control" name="stdId" id="stdId" placeholder="Enter student id">
+            </div>
+        </div>
+        <div class="col-2"></div>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-
-  </div>
 </div>
-</div>
-
-
-
-
-<% include ./partials/footer %>
+<% include ./partials/footer.ejs %>

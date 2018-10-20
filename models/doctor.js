@@ -1,31 +1,12 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://whatever:whatever1@ds257372.mlab.com:57372/uts-medical-services');
-const bcrypt = require('bcryptjs');
-
+const mongoose = require("mongoose");
 //Doctor Schema
 const DoctorSchema = mongoose.Schema({
-    id: {
-        type : Number,
-        required: [true]
-    },
-    first_name:{ 
-        type : String
-    },
-    last_name:{
-        type : String
-    },
-    Address:{
-        type: String
-    },
-    Email:{
-        type: String
-    },
-    Phone_no:{
-        type: Number
-    },
-    Type: {
-        type: String
-    }
+  id: { type: String},
+  name: { type: String },
+  address: { type: String },
+  email: { type: String },
+  phone_no: { type: String },
+  typeOfDoctor: { type: String }
 });
+module.exports = mongoose.model("Doctor", DoctorSchema);
 
-const Doctor = module.exports = mongoose.model('Doctor', DoctorSchema);
