@@ -5,62 +5,204 @@
 <%
   if(user){
     if(user.doctor == true){ %>
-        <div class="container mt-3">
-    
+<div class="container mt-3">
+
     <div class="row mt-5">
         <div class="col-6">
             <div class="card mb-3">
-            <div class="card-header text-center">Profile</div>
-                    <div class="card-body">
-                        <p><span class="lead"></b></span><br>
-                        
-                    </div>
+                <div class="card-header text-center">Profile</div>
+                <div class="card-body">
+                    <% data.find((result) => { %>
+
+                    <form method="POST" action="profile/" class="form-horizontal form-material">
+                        <div class="form-group">
+                            <label class="col-md-12">First Name</label>
+                            <div class="col-md-12">
+                                <input name="name" id="name" type="text" placeholder="<%=result.name%>" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Email</label>
+                            <div class="col-md-12">
+                                <input type="email" name="email" id="email" placeholder="<%=result.email%>" class="form-control form-control-line"
+                                    name="example-email" id="example-email"> </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Doctor ID </label>
+                            <div class="col-md-12">
+                                <input type="text" name="id" id="id" placeholder="<%=result.id%>" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Phone No</label>
+                            <div class="col-md-12">
+                                <input type="text" name="phone_no" id="phone_no" placeholder="<%=result.phone_no%>"
+                                    class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Address</label>
+                            <div class="col-md-12">
+                                <input type="text" name="address" id="address" placeholder="<%=result.address%>" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Type of Doctor</label>
+                            <div class="col-md-12">
+                                <input type="text" name="typeOfDoctor" id="typeOfDoctor" placeholder="<%=result.typeOfDoctor%>"
+                                    class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Update Profile</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <%}); %>
+
+
                 </div>
+            </div>
         </div>
         <div class="col-6">
-           
-                <div class="card mb-3">
+
+            <div class="card mb-3">
                 <div class="card-header text-center">Your Treatment History</div>
-                     <% result.forEach((data) => {  %>
-                    <div class="card-body">
-                        
-                        <p><span class="lead"><b>Student ID: <%= data.studentId%></b></span><br>
-                        <span><i class="fa fa-clock-o mr-2"></i> <%= data.time%></span><br>
-                        <span><i class="fa fa-calendar mr-2"></i><%= data.date%></span><b>
-                    </div>
+                <% result.forEach((data) => {  %>
+                <div class="card-body">
+
+                    <p><span class="lead"><b>Student ID:
+                                <%= data.studentId%></b></span><br>
+                        <span><i class="fa fa-clock-o mr-2"></i>
+                            <%= data.time%></span><br>
+                        <span><i class="fa fa-calendar mr-2"></i>
+                            <%= data.date%></span><b>
                 </div>
-                        </div>
-           <% }) %>
+            </div>
+        </div>
+        <% }) %>
 
     </div>
 </div>
 <% } else { %>
 <!--Show Student Profile -->
-<div class="container mt-3">
-    <h1 class="text-center">Appointment History</h1>
-    <div class="row mt-5">
-        <div class="col-3"></div>
-        <div class="col-6">
-            <% result.forEach((data) => {  %>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <p><span class="lead"><b><%= data.doctorName%></b></span> <span class="float-right
-                    text-secondary">Pending</span></p>
-                        <span><i class="fa fa-clock-o mr-2"></i> <%= data.time%></span><br>
-                        <span><i class="fa fa-calendar mr-2"></i><%= data.date%></span><br>
-                         <% data.appointmentType.forEach((type) => {%>
-                            <p class="float-right" href="#"><%=type%> &nbsp;</p>
-                         <%})%>
+
+
+
+<div class="container mt-5">
+    <h1 class="text-center">UTS Medical Appointment Service</h1>
+    <% studentData.find((result) => { %>
+
+
+    <div class=" card row mt-5">
+        <div class="white-box">
+            <form method="POST" action="profile/" class="form-horizontal form-material">
+                <div class="form-group">
+                    <label class="col-md-12">First Name</label>
+                    <div class="col-md-12">
+                        <input name="name" id="name" type="text" placeholder="<%=result.name%>" class="form-control form-control-line">
                     </div>
                 </div>
-           <% }) %>
-        </div>
-        <div class="col-3"></div>
+                <div class="form-group">
+                    <label for="example-email" class="col-md-12">Email</label>
+                    <div class="col-md-12">
+                        <input type="email" name="email" id="email" placeholder="<%=result.email%>" class="form-control form-control-line"
+                            name="example-email" id="example-email"> </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Student ID </label>
+                    <div class="col-md-12">
+                        <input type="text" name="stdId" id="stdId" placeholder="<%=result.stdId%>" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Phone No</label>
+                    <div class="col-md-12">
+                        <input type="text" name="phone_no" id="phone_no" placeholder="<%=result.phone_no%>" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Address</label>
+                    <div class="col-md-12">
+                        <input type="text" name="address" id="address" placeholder="<%=result.address%>" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Year</label>
+                    <div class="col-md-12">
+                        <input type="text" name="year" id="year" placeholder="<%=result.year%>" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Semester</label>
+                    <div class="col-md-12">
+                        <input type="text" name="semester" id="semester" placeholder="<%=result.semester%>" class="form-control form-control-line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success">Update Profile</button>
+                    </div>
+                </div>
 
+            </form>
+
+        </div>
     </div>
-</div>
-<%  }
+    <%}); %>
+
+    <div class="container mt-3">
+        <div class="row mt-5  mb-3 card-body alert alert-info">
+            <p>Profile Details</p>
+            <div>
+                <ul>
+                    <li>Below are the details we have recorded about you.</li>
+                    <li>
+                        To make any changes, go and click <a href="#">here</a> and you'll be direct to a page to update
+                        your details.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!--Show appointment history-->
+    <div class="container mt-3">
+        <h1 class="text-center">Appointment History</h1>
+        <div class="row mt-5">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <% result.forEach((data) => {  %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p><span class="lead"><b>
+                                    <%= data.doctorName%></b></span> <span class="float-right
+                    text-secondary">Pending</span></p>
+                        <span><i class="fa fa-clock-o mr-2"></i>
+                            <%= data.time%></span><br>
+                        <span><i class="fa fa-calendar mr-2"></i>
+                            <%= data.date%></span><br>
+                        <% data.appointmentType.forEach((type) => {%>
+                        <p class="float-right" href="#">
+                            <%=type%> &nbsp;</p>
+                        <%})%>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <div class="col-3"></div>
+
+        </div>
+    </div>
+    <%  }
   } 
 %>
 
-<% include ./partials/footer.ejs %>
+    <% include ./partials/footer.ejs %>

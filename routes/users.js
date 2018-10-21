@@ -6,8 +6,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const nodemailer = require('nodemailer');
-const xoauth2 = require('xoauth2');
+const nodemailer = require("nodemailer");
+const xoauth2 = require("xoauth2");
 
 //Dummy Data
 // const doctors = require("../data/doctor.json");
@@ -26,6 +26,17 @@ router.get("/appointment", (req, res, next) => {
   } else {
     res.render("appointment");
   }
+});
+
+router.post("/profile", (req, res, next) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const stdId = req.body.stdId;
+  const phone_no = req.body.phone_no;
+  const address = req.body.address;
+  const year = req.body.year;
+  const semester = req.body.semester;
+  res.render("index.ejs");
 });
 
 //GET Profile route
@@ -50,25 +61,45 @@ router.get("/profile", (req, res, next) => {
     } else {
       //Search DB by finding studentID
       console.log("Yo ur student");
-      Appointment.find({ studentId: req.user.stdId })
-        .then(result => {
-          res.render("profile", { result });
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      Student.find({ stdId: req.user.stdId }).then(studentData => {
+        Appointment.find({ studentId: req.user.stdId })
+          .then(result => {
+            res.render("profile", { result, studentData });
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      });
     }
   }
 });
 
-//POST route to profile
+router.post("/profile", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const stdId = req.body.stdId;
+  const phone_no = req.body.phone_no;
+  const address = req.body.address;
+  const year = req.body.year;
+  const semester = req.body.semester;
+
+  console.log(name);
+  res.render("profile.ejs");
+});
+
+//Post route for profile
+
 // router.post("/profile", (req, res) => {
-//   console.log(req.body.new_firstname);
-//   res.render("profile", {
-//     app,
-//     doctors,
-//     students
-//   });
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const stdId = req.body.stdId;
+//   const phone_no = req.body.phone_no;
+//   const address = req.body.address;
+//   const year = req.body.year;
+//   const semester = req.body.semester;
+
+//   console.log(name);
+
 // });
 
 //POST Route to appointment
@@ -83,15 +114,21 @@ router.post("/appointment", (req, res, next) => {
   appointment.save((err, appointment) => {
     if (err) throw err;
     let doctorEmail = "";
-    Doctor.findOne({ name: req.body.doctor }).then(doctor => doctorEmail = doctor.email).catch(err => console.log(err));
+    Doctor.findOne({ name: req.body.doctor })
+      .then(doctor => (doctorEmail = doctor.email))
+      .catch(err => console.log(err));
 
-    Student.findOne({ stdId: req.body.stdId }).then( student => {
-      //Send Mail to the user
-      const email = student.email;
-      const output = `
+    Student.findOne({ stdId: req.body.stdId })
+      .then(student => {
+        //Send Mail to the user
+        const email = student.email;
+        const output = `
           <h3>Booking for Dr. ${req.body.doctor}.</h3>
           <p>Hi ${student.name}, </p>
-          <p>You booked for a ${req.body.medicalType} in ${new Date().toJSON().slice(0,10).replace(/-/g,'/')}. Below are details of booking.</p>
+          <p>You booked for a ${req.body.medicalType} in ${new Date()
+          .toJSON()
+          .slice(0, 10)
+          .replace(/-/g, "/")}. Below are details of booking.</p>
           <ul>
           <li>Date: ${req.body.date}</li>
           <li>Time: ${req.body.timeneeded}</li>
@@ -105,37 +142,37 @@ router.post("/appointment", (req, res, next) => {
               of the non-attendance fee. The non-attendance fee will not be claimable from Medicare or private health
               insurance.</p>`;
 
-            // Create a SMTP transporter object
-            const transporter = nodemailer.createTransport({
-                host: 'smtp.ethereal.email',
-                port: 587,
-                auth: {
-                    user: 'b3hfow5wgtangdhx@ethereal.email',
-                    pass: 'qgCpgbb8yTZ8yC4716'
-                }
-            });
+        // Create a SMTP transporter object
+        const transporter = nodemailer.createTransport({
+          host: "smtp.ethereal.email",
+          port: 587,
+          auth: {
+            user: "b3hfow5wgtangdhx@ethereal.email",
+            pass: "qgCpgbb8yTZ8yC4716"
+          }
+        });
 
-            // Message object
-            const message = {
-                from: 'UTS Medical Services <sender@example.com>',
-                to: `${student.name} <${student.email}>`,
-                subject: 'Appointment Confimed',
-                text: '',
-                html: output
-            };
+        // Message object
+        const message = {
+          from: "UTS Medical Services <sender@example.com>",
+          to: `${student.name} <${student.email}>`,
+          subject: "Appointment Confimed",
+          text: "",
+          html: output
+        };
 
-            transporter.sendMail(message, (err, info) => {
-                if (err) {
-                    console.log('Error occurred. ' + err.message);
-                    return process.exit(1);
-                }
+        transporter.sendMail(message, (err, info) => {
+          if (err) {
+            console.log("Error occurred. " + err.message);
+            return process.exit(1);
+          }
 
-                console.log('Message sent: %s', info.messageId);
-                // Preview only available when sending through an Ethereal account
-                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-            });
-
-    }).catch( err=> console.log(err));
+          console.log("Message sent: %s", info.messageId);
+          // Preview only available when sending through an Ethereal account
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        });
+      })
+      .catch(err => console.log(err));
   });
   res.render("success.ejs");
 });

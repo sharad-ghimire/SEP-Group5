@@ -30,6 +30,7 @@ router.get("/register", (req, res, next) => {
 /*Post route for register
 * Will handle registration of user to the Database
 */
+
 router.post("/register", (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;

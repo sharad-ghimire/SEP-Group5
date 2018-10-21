@@ -24,7 +24,7 @@ const app = express();
 //Connect to MLab Database
 mongoose
   .connect(
-    "mongodb://whatever:whatever1@ds257372.mlab.com:57372/uts-medical-services",
+    "mongodb://robin:qwerty1@ds251002.mlab.com:51002/utsmedapp",
     { useNewUrlParser: true }
   )
   .then(value => {
