@@ -36,6 +36,7 @@ router.post("/profile", (req, res, next) => {
   const address = req.body.address;
   const year = req.body.year;
   const semester = req.body.semester;
+
   res.render("index.ejs");
 });
 
