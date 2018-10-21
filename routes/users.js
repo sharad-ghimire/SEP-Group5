@@ -18,6 +18,7 @@ const xoauth2 = require("xoauth2");
 const Student = require("../models/student");
 const Doctor = require("../models/doctor");
 const Appointment = require("../models/appointment");
+const User = require("../models/user");
 // GET Appointment Route
 router.get("/appointment", (req, res, next) => {
   if (req.user == null) {
@@ -29,15 +30,39 @@ router.get("/appointment", (req, res, next) => {
 });
 
 router.post("/profile", (req, res, next) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const stdId = req.body.stdId;
-  const phone_no = req.body.phone_no;
-  const address = req.body.address;
-  const year = req.body.year;
-  const semester = req.body.semester;
-
-  res.render("index.ejs");
+  if (req.user.doctor == true) {
+    Doctor.findOneAndUpdate(
+      { id: req.body.id },
+      {
+        name: req.body.name,
+        email: req.body.email,
+        id: req.body.id,
+        phone_no: req.body.phone_no,
+        address: req.body.address,
+        typeOfDoctor: req.body.typeOfDoctor
+      },
+      (err, todo) => {
+        if (err) return res.status(500).send(err);
+      }
+    );
+  } else {
+    Student.findOneAndUpdate(
+      { stdId: req.body.stdId },
+      {
+        name: req.body.name,
+        email: req.body.email,
+        stdId: req.body.stdId,
+        phone_no: req.body.phone_no,
+        address: req.body.address,
+        year: req.body.year,
+        semester: req.body.semester
+      },
+      (err, todo) => {
+        if (err) return res.status(500).send(err);
+      }
+    );
+  }
+  res.render("successUpdate.ejs");
 });
 
 //GET Profile route
@@ -73,19 +98,6 @@ router.get("/profile", (req, res, next) => {
       });
     }
   }
-});
-
-router.post("/profile", (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const stdId = req.body.stdId;
-  const phone_no = req.body.phone_no;
-  const address = req.body.address;
-  const year = req.body.year;
-  const semester = req.body.semester;
-
-  console.log(name);
-  res.render("profile.ejs");
 });
 
 //Post route for profile
