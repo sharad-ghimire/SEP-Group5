@@ -50,7 +50,7 @@ app.use(
     secret: "whatever",
     saveUninitialized: true,
     resave: true,
-    cookie: { maxAge: 1000000000000 }
+    cookie: { maxAge: 100000 }
   })
 );
 
@@ -99,7 +99,7 @@ app.use("/", index);
 app.use("/users", users);
 
 /*Listening to port
-  @params{number} port The port this application will look to 
+  @params{number} port The port this application will look to
  */
 app.listen(port, () => {
   console.log(`Server started at port: ${port}`);
