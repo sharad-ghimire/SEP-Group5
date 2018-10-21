@@ -1,83 +1,93 @@
 <% include ./partials/header.ejs %>
 <% include ./partials/navbar.ejs %>
-
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="home"></span>
-                            Dashboard <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            Orders
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Products
-                        </a>
-                    </li>
-                </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Saved reports</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Year-end sale
-                        </a>
-                    </li>
-                </ul>
+<% include ./partials/scripts.ejs %>
+<div class="jumbotron">
+    <h3 class="text-center">Welcome to UTS Medical Appointment Service</h3>
+    <%
+    if(user){
+    if(user.doctor === true){ %>
+        <div class="row mt-3">
+            <div class="col-6">
+                <!--Show Details -->
+                <div class="card testimonial-card">
+                    <div class="card-header">Your Details</div>
+                    <div class="avatar mx-auto white">
+                        <img src="https://placeimg.com/200/190/people" class="rounded-circle" alt="woman avatar">
+                    </div>
+                    <% data.find((result) => { %>
+                    <div class="card-body">
+                        <h4 class="card-title"><%=result.name%></h4>
+                        <hr>
+                        <p><%=result.email%></p>
+                        <p><%=result.stdId%></p>
+                    </div>
+                    <%})%>
+                    <a href="/users/profile" class="btn btn-success">Edit Profile</a>
+                </div>
+                <!-- Card -->
             </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <% include ./app-history.ejs %>
-            <% include ./app-history.ejs %>
-        </main>
-    </div>
+            <div class="col-6">
+                <!--Show Total Appointment History-->
+                <div class="card">
+                    <div class="card-header">Appointments History</div>
+                    <div class="row mt-5">
+                        <div class="col-6">
+                            <div class="card ml-2">
+                                <span class="h1 text-center text-info" style="font-size: 150px">0</span>
+                                <div class="card-footer">Appointments for Today</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card mr-2">
+                                <span class="h1 text-center text-info" style="font-size: 150px"><%=total%></span>
+                                <div class="card-footer">Appointments So Far</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/users/apphis" class="btn btn-success mt-5">More Information</a>
+                </div>
+            </div>
+        </div>
+    <%} else {%>
+        <div class="row mt-3">
+            <div class="col-6">
+                <!--Show Details -->
+                <div class="card testimonial-card">
+                    <div class="card-header">Your Details</div>
+                    <div class="avatar mx-auto white">
+                        <img src="https://placeimg.com/200/190/people" class="rounded-circle" alt="woman avatar">
+                    </div>
+                    <% studentData.find((result) => { %>
+                    <div class="card-body">
+                        <h4 class="card-title"><%=result.name%></h4>
+                        <hr>
+                        <p><%=result.email%></p>
+                        <p><%=result.stdId%></p>
+                    </div>
+                    <%})%>
+                    <a href="/users/profile" class="btn btn-success">Edit Profile</a>
+                </div>
+                <!-- Card -->
+            </div>
+            <div class="col-6">
+                <!--Show Total Appointment History-->
+                <div class="card">
+                    <div class="card-header">Appointments History</div>
+                    <div class="row mt-5">
+                        <div class="col-2"></div>
+                        <div class="col-8">
+                            <div class="card mr-2 mb-5">
+                                <span class="h1 text-center text-info" style="font-size: 150px"><%=total%></span>
+                                <div class="card-footer">Appointments So Far</div>
+                            </div>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <a href="/users/apphis" class="btn btn-success mt-5">More Information</a>
+                </div>
+            </div>
+        </div>
+    <%}}%>
+
 </div>
-
-<!-- Bootstrap core JavaScript-->
 <% include ./partials/footer.ejs %>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-            }
-        }
-    });
-</script>
-
-

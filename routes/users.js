@@ -8,12 +8,6 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const nodemailer = require("nodemailer");
 const xoauth2 = require("xoauth2");
-
-//Dummy Data
-// const doctors = require("../data/doctor.json");
-// const students = require("../data/students.json");
-// const appointments = require("../data/appointments.json");
-
 //Model
 const Student = require("../models/student");
 const Doctor = require("../models/doctor");
@@ -30,7 +24,7 @@ router.get("/appointment", (req, res, next) => {
 });
 
 router.post("/profile", (req, res, next) => {
-  if (req.user.doctor == true) {
+  if (req.user.doctor === true) {
     Doctor.findOneAndUpdate(
       { id: req.body.id },
       {
@@ -65,6 +59,76 @@ router.post("/profile", (req, res, next) => {
   res.render("successUpdate.ejs");
 });
 
+//Dashboard Route
+router.get("/dashboard", (req, res, next) => {
+    if (req.user == null) {
+        req.flash("error_msg", "You are not authorized!");
+        res.redirect("/login");
+    } else {
+        if (req.user.doctor == true) {
+            Doctor.find({ id: req.user.stdId })
+                .then(data => {
+                    Appointment.find({ doctorName: req.user.name })
+                        .then(result => {
+                            res.render("dashboard", { result, data, total: result.length });
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
+                })
+                .catch(err => console.log("Error"));
+        } else {
+            //Search DB by finding studentID
+            Student.find({ stdId: req.user.stdId }).then(studentData => {
+                Appointment.find({ studentId: req.user.stdId })
+                    .then(result => {
+                        res.render("dashboard", { result, studentData , total: result.length});
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            });
+        }
+
+    }
+
+});
+
+//App History route
+router.get("/apphis", (req, res, next) => {
+    if (req.user == null) {
+        req.flash("error_msg", "You are not authorized!");
+        res.redirect("/login");
+    } else {
+        if (req.user.doctor == true) {
+            Doctor.find({ id: req.user.stdId })
+                .then(data => {
+                    Appointment.find({ doctorName: req.user.name })
+                        .then(result => {
+                            res.render("apphis", { result, data });
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
+                })
+                .catch(err => console.log("Error"));
+        } else {
+            //Search DB by finding studentID
+            Student.find({ stdId: req.user.stdId }).then(studentData => {
+                Appointment.find({ studentId: req.user.stdId })
+                    .then(result => {
+                        res.render("apphis", { result, studentData });
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            });
+        }
+
+    }
+
+});
+
 //GET Profile route
 router.get("/profile", (req, res, next) => {
   if (req.user == null) {
@@ -72,7 +136,6 @@ router.get("/profile", (req, res, next) => {
     res.redirect("/login");
   } else {
     if (req.user.doctor == true) {
-      console.log("Yo ur doctor");
       Doctor.find({ id: req.user.stdId })
         .then(data => {
           Appointment.find({ doctorName: req.user.name })
@@ -86,7 +149,6 @@ router.get("/profile", (req, res, next) => {
         .catch(err => console.log("Error"));
     } else {
       //Search DB by finding studentID
-      console.log("Yo ur student");
       Student.find({ stdId: req.user.stdId }).then(studentData => {
         Appointment.find({ studentId: req.user.stdId })
           .then(result => {
@@ -99,21 +161,6 @@ router.get("/profile", (req, res, next) => {
     }
   }
 });
-
-//Post route for profile
-
-// router.post("/profile", (req, res) => {
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const stdId = req.body.stdId;
-//   const phone_no = req.body.phone_no;
-//   const address = req.body.address;
-//   const year = req.body.year;
-//   const semester = req.body.semester;
-
-//   console.log(name);
-
-// });
 
 //POST Route to appointment
 router.post("/appointment", (req, res, next) => {
@@ -190,13 +237,6 @@ router.post("/appointment", (req, res, next) => {
   res.render("success.ejs");
 });
 
-// router.get("/dashboard", (req, res, next) => {
-//   res.render("dashboard.ejs");
-// });
-
-router.get("/appointment-history", (req, res, next) => {
-  res.render("app-history.ejs");
-});
 
 //Specific doctor route with specific :id
 router.get("/doc/:id", (req, res, next) => {

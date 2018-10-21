@@ -1,0 +1,57 @@
+<% include ./partials/header.ejs %>
+<% include ./partials/navbar.ejs %>
+<% include ./partials/scripts.ejs %>
+<%
+if(user){
+    if(user.doctor === true){ %>
+<div class="container mt-3">
+    <h4 class="text-center">Appointment History</h4>
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6"><div class="card mb-3">
+                <div class="card-header text-center">Your Treatment History</div>
+                <% result.forEach((data) => {  %>
+                    <div class="card-body">
+                        <p><span class="lead"><b>Student ID:   <%= data.studentId%></b></span><br>
+                            <span><i class="fa fa-clock-o mr-2"></i>   <%= data.time%></span><br>
+                            <span><i class="fa fa-calendar mr-2"></i>  <%= data.date%></span>
+                        <hr>
+                    </div>
+                <% }) %>
+            </div></div>
+        <div class="col-3"></div>
+    </div>
+</div>
+<% } else {%>
+    <!--Show appointment history-->
+    <div class="container mt-3">
+        <h4 class="text-center">Appointment History</h4>
+        <div class="row mt-5">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <% result.forEach((data) => {  %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p><span class="lead"><b>
+                                        <%= data.doctorName%></b></span> <span class="float-right
+                    text-secondary">Pending</span></p>
+                            <span><i class="fa fa-clock-o mr-2"></i>
+                                <%= data.time%></span><br>
+                            <span><i class="fa fa-calendar mr-2"></i>
+                                <%= data.date%></span><br>
+                            <% data.appointmentType.forEach((type) => {%>
+                            <p class="float-right" href="#">
+                                <%=type%> &nbsp;</p>
+                            <%})%>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="col-3"></div>
+
+        </div>
+    </div>
+
+<% }} %>
+
+<% include ./partials/footer.ejs %>
