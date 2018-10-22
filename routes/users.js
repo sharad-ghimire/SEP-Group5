@@ -214,8 +214,8 @@ router.post("/appointment", (req, res, next) => {
 
         // Message object
         const message = {
-          from: "UTS Medical Services <sender@example.com>",
-          to: `${student.name} <${student.email}>`,
+          from: "UTS Medical Services <uts@medical.uts.edu.au>",
+          to: `${student.name} <${student.email}>, ${req.body.doctor} <${doctorEmail}>`,
           subject: "Appointment Confimed",
           text: "",
           html: output
