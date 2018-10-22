@@ -240,15 +240,14 @@ router.post("/appointment", (req, res, next) => {
 
 //Specific doctor route with specific :id
 router.get("/doc/:id", (req, res, next) => {
-  if (req.user == null) {
-    req.flash("error_msg", "You are not authorized!, Login first to Continue");
-    res.redirect("/login");
-  } else {
     let docId = req.params.id;
-    res.render("eachDocProfile", {
-      docId: docId
-    });
-  }
+    console.log(docId)
+    Doctor.findOne({ name: docId }).then(doctor => {
+        console.log(doctor);
+        res.render("eachDocProfile", {docId: docId, doctor: doctor});
+        })
+        .catch(err => console.log(err));
+
 });
 
 //AJAX routes

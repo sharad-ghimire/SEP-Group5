@@ -1,8 +1,12 @@
-<% include ./partials/header %>
-<% include ./partials/navbar %>
+<% include ./partials/header.ejs %>
+<% include ./partials/navbar.ejs %>
+<% include ./partials/scripts.ejs %>
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h2 class="lead"><%=docId %></h2>
+        <small>Email <a href="mailto:<%=doctor.email%>"><%=doctor.email %></a></small>
+    </div>
+</div>
 
-
-<p class="lead">You are doctor <%=docId %></p>
-
-<% include ./partials/footer %>
+<% include ./partials/footer.ejs %>
 
